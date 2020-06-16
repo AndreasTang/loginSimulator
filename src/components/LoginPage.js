@@ -225,7 +225,7 @@ const LoginPage = () => {
                     authCallback={responseTwitter}
                     consumerKey={process.env.REACT_APP_TWITTER_API}
                     consumerSecret={process.env.REACT_APP_TWITTER_API_SECRET}
-                    callbackUrl={'http://testtwitterlogin.com:3000'}
+                    callbackUrl={process.env.NODE_ENV !== 'production' ? 'http://testtwitterlogin.com:3000' : 'https://loginsimulator.herokuapp.com'}
                 />
             </div>
         </div>
