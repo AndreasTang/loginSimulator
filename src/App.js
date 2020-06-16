@@ -1,10 +1,10 @@
 import React from 'react';
-import LoginPage from './components/LoginPage'
+import AppRouter from './router/AppRouter'
 
 const App = () => {
   return (
     <div>
-      <LoginPage />
+      <AppRouter />
     </div>
   );
 }
