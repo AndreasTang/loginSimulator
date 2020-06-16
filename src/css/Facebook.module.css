@@ -1,0 +1,28 @@
+.fb {
+    font-family: Lucida Grande, Helvetica Neue, Helvetica, Arial, sans-serif;
+    display: inline-block;
+    font-size: 14px;
+    padding: 15px 30px 15px 30px;
+    background: #3A5A97;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,20,.4);
+    text-decoration: none;
+    line-height: 1;
+    position: relative;
+    border-radius: 5px;
+}
+  
+.page {
+	background-color: darkgray;
+	min-height: 100vh;
+}
+
+.title {
+	text-align: center;
+	font-size: 40px;
+}
+
+.currentUser {
+	text-align: center;
+	font-size: 15px;
+}
