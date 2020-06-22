@@ -2,11 +2,16 @@
   "name": "login_page",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "passport": "^0.4.1",
+    "passport-twitter": "^1.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-facebook": "^8.1.4",
@@ -15,12 +20,14 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-twitter-auth": "0.0.13",
-    "react-twitter-login": "^1.1.2"
+    "react-twitter-login": "^1.1.2",
+    "twitter-lite": "^0.14.0"
   },
   "scripts": {
-    "start":"node ./server/server.js",
-    "dev": "react-scripts start",
+    "start": "node ./server/server.js",
     "heroku-postbuild": "react-scripts build",
+    "server": "env-cmd -f ./config/dev.env nodemon ./server/server.js",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -39,5 +46,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "nodemon": "^2.0.4"
   }
 }

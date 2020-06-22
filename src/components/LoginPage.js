@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { FacebookProvider, LoginButton } from 'react-facebook'
-import { TwitterLogin } from "react-twitter-login"
+// import { TwitterLogin } from "react-twitter-login"
+// import Twitter from 'twitter-lite'
 import styles from '../css/Facebook.module.css'
 
 const LoginPage = () => {
@@ -22,9 +23,9 @@ const LoginPage = () => {
         const userData = localStorage.getItem('userData')
         console.log(userData)
         if (userData) {
-            setCurrentUser(userData)
+            setCurrentUser(JSON.parse(userData))
         } else {
-            setCurrentUser([])
+            setCurrentUser('')
         }
     }, [])
 
@@ -37,7 +38,9 @@ const LoginPage = () => {
     // functions
 
     const setLocalStorage = (userData) => {
-        localStorage.setItem('userData', JSON.stringify(userData))
+        if (userData) {
+            localStorage.setItem('userData', JSON.stringify(userData))
+        }
     }
 
     const getUser = async (url) => {
@@ -122,6 +125,7 @@ const LoginPage = () => {
     }
 
     const responseGoogle = async (response) => {
+        console.log('runed')
         if (response.error) {
             console.log(response.error)
         } else {
@@ -137,6 +141,7 @@ const LoginPage = () => {
             }
 
             const userData = await postUser(url, data)
+            console.log(userData)
 
             if (userData) {
                 alert('Sign up or sign in success')
@@ -163,9 +168,26 @@ const LoginPage = () => {
         }
     }
 
-    const responseTwitter = async (err, data) => {
-        console.log(err, data)
-    }
+    // const handleTwitter = async () => {
+    //     const fetchUrl = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000/auth/twitter' : 'https://loginsimulator.herokuapp.com/auth/twitter'
+    //     await getUser(fetchUrl)
+    //         .then((response) => {
+    //             if (response) {
+    //                 return response.json()
+    //             }
+    //         })
+    //         .then((data) => {
+    //             console.log(data)
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //         })
+    //     window.open(fetchUrl, '"_self"')
+    // }
+
+    // const responseTwitter = async (err, data) => {
+    //     console.log(err, data)
+    // }
 
     // handleInput functions
 
@@ -189,44 +211,42 @@ const LoginPage = () => {
     return (
         <div className={styles.page}>
             <div className={styles.title}>Welcome to Login Simulator</div>
-            <div><p className={styles.currentUser}>{`Current user: ${currentUser && currentUser.name ? currentUser.name : 'None'}`}</p></div>
-            <form>
+            <div className={styles.currentUserWrapper}>
+                <p className={styles.currentUser}>{`Current user: ${currentUser && currentUser.name ? currentUser.name : 'None'}`}</p>
+            </div>
+            <form className={styles.formWrapper}>
                 <div>
-                    <input type='text' value={account} onChange={(e) => handleChange(e, 'account')} placeholder='Account' />
+                    <input type='text' className={styles.input} value={account} onChange={(e) => handleChange(e, 'account')} placeholder='Account' />
                 </div>
                 <div>
-                    <input type='text' value={password} onChange={(e) => handleChange(e, 'password')} placeholder='Password' />
+                    <input type='text' className={styles.input} value={password} onChange={(e) => handleChange(e, 'password')} placeholder='Password' />
                 </div>
-                <button onClick={handleSignUpClick} disabled={handleButtonDisable()}>Sign up</button>
-                {currentUser && currentUser.name ? (
-                    <button onClick={handleSignOutClick}>Sign out</button>
-                ) : (
-                    <button onClick={handleSignInClick} disabled={handleButtonDisable()}>Sign in</button>
-                )}
+                <div className={styles.buttonWrapper}>
+                    <button onClick={handleSignUpClick} disabled={handleButtonDisable()}>Sign up</button>
+                    {currentUser && currentUser.name ? (
+                        <button onClick={handleSignOutClick}>Sign out</button>
+                    ) : (
+                        <button onClick={handleSignInClick} disabled={handleButtonDisable()}>Sign in</button>
+                    )}
+                </div>
             </form>
-            <div>
-                <GoogleLogin
-                    clientId='314840229738-mopbtqaioc7dlh11dl3v6i5boqjcrshs.apps.googleusercontent.com'
-                    buttonText='Login with Google'
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                />
-            </div>
-            <div>
-                <FacebookProvider appId='265264941218877'>
-                    <LoginButton scope='email' onCompleted={responseFacebook} onError={responseFacebook}>
-                        <span className={styles.fb}>Login with Facebook</span>
-                    </LoginButton>
-                </FacebookProvider>
-            </div>
-            <div>
-                <TwitterLogin
-                    authCallback={responseTwitter}
-                    consumerKey={process.env.REACT_APP_TWITTER_API}
-                    consumerSecret={process.env.REACT_APP_TWITTER_API_SECRET}
-                    callbackUrl={process.env.NODE_ENV !== 'production' ? 'http://testtwitterlogin.com:3000' : 'https://loginsimulator.herokuapp.com'}
-                />
+            <div className={styles.thirdPartyButtonWrapper}>
+                <div className={styles.googleButton}>
+                    <GoogleLogin
+                        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                        buttonText='Login with Google'
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
+                </div>
+                <div>
+                    <FacebookProvider appId={process.env.REACT_APP_FACEBOOK_APP_ID}>
+                        <LoginButton className={styles.fbButton} scope='email' onCompleted={responseFacebook} onError={responseFacebook}>
+                            <span className={styles.fb}>Login with Facebook</span>
+                        </LoginButton>
+                    </FacebookProvider>
+                </div>
             </div>
         </div>
     )

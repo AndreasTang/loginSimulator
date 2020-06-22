@@ -11,18 +11,63 @@
     position: relative;
     border-radius: 5px;
 }
-  
+
+.fbButton {
+    padding: 0;
+    border: none;
+}
+
+.input {
+    margin-bottom: 5px;
+}
+
 .page {
 	background-color: darkgray;
-	min-height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    align-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+}
+
+.googleButton {
+    margin-bottom: 8px;
 }
 
 .title {
 	text-align: center;
-	font-size: 40px;
+    font-size: 40px;
+    box-sizing: border-box;
+    margin-bottom: 60px;
+    margin-top: 20px;
 }
 
 .currentUser {
 	text-align: center;
-	font-size: 15px;
+    font-size: 15px;
+}
+
+.currentUserWrapper {
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.formWrapper {
+    box-sizing: border-box;
+}
+
+.buttonWrapper {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.thirdPartyButtonWrapper {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
