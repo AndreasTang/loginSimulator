@@ -235,14 +235,14 @@ const LoginPage = () => {
                     <GoogleLogin
                         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                         buttonText='Login with Google'
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
+                        onSuccess={() => responseGoogle}
+                        onFailure={() => responseGoogle}
                         cookiePolicy={'single_host_origin'}
                     />
                 </div>
                 <div>
                     <FacebookProvider appId={process.env.REACT_APP_FACEBOOK_APP_ID}>
-                        <LoginButton className={styles.fbButton} scope='email' onCompleted={responseFacebook} onError={responseFacebook}>
+                        <LoginButton className={styles.fbButton} scope='email' onCompleted={() => responseFacebook} onError={() => responseFacebook}>
                             <span className={styles.fb}>Login with Facebook</span>
                         </LoginButton>
                     </FacebookProvider>
