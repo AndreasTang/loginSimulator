@@ -25,6 +25,8 @@ yarn-error.log*
 # env
 
 .env
+/config
+.env.development
 
 # heroku deploy
 
