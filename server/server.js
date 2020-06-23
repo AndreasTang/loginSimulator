@@ -12,11 +12,7 @@ const port = process.env.PORT || 8080
 
 // app.use(passport.initialize())
 
-app.use(cors({
-    origin: process.env.NODE_ENV !== 'production' ? 'http://localhost:8080' : 'https://loginsimulator.herokuapp.com', // allow to server to accept request from different origin
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true // allow session cookie from browser to pass through
-  }))
+app.use(cors())
 
 app.use(express.static(publicPath))
 
